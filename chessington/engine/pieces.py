@@ -49,6 +49,15 @@ class Pawn(Piece):
             # If it's the first time the pawn has moved then moving two spaces is legal
             if (square_on_board.row == 1 and self.player == Player.WHITE) or (square_on_board.row == 6 and self.player == Player.BLACK):
                 self.move_x_times(moves, square_on_board, 2)
+
+        capturable_squares = self.one_square_in_front_digaonally(square_on_board)
+        diagonal_square_1 = capturable_squares[0]
+        diagonal_square_2 = capturable_squares[1]
+
+        if self.is_piece_on_diagonal(board, diagonal_square_1) and self.is_opposing_piece(board.get_piece(diagonal_square_1)):
+            moves.append(diagonal_square_1)
+        if self.is_piece_on_diagonal(board, diagonal_square_2) and self.is_opposing_piece(board.get_piece(diagonal_square_2)):
+            moves.append(diagonal_square_2)
         return moves
 
     def x_squares_in_front(self, square_on_board, x_squares):
@@ -64,6 +73,27 @@ class Pawn(Piece):
         else:
             moves.append(Square.at(square_on_board.row - x_times, square_on_board.col))
 
+    def one_square_in_front_digaonally(self, square_on_board):
+        capturable_squares = []
+        if self.player == Player.WHITE:
+            capturable_squares.append(Square.at(square_on_board.row + 1, square_on_board.col + 1))
+            capturable_squares.append(Square.at(square_on_board.row + 1, square_on_board.col - 1))
+        else:
+            capturable_squares.append(Square.at(square_on_board.row - 1, square_on_board.col + 1))
+            capturable_squares.append(Square.at(square_on_board.row - 1, square_on_board.col - 1))
+        return capturable_squares
+
+    def is_opposing_piece(self, piece):
+        if piece.player == self.player:
+            return False
+        else:
+            return True
+
+    def is_piece_on_diagonal(self, board, square):
+        if not board.get_piece(square):
+            return False
+        else:
+            return True
 
 class Knight(Piece):
     """
