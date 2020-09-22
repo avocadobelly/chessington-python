@@ -35,7 +35,15 @@ class Pawn(Piece):
     """
 
     def get_available_moves(self, board):
-        return []
+        #get the current square of the piece
+        current_square = board.find_piece(self)
+        moves = []
+        # pawns may move one forwards or backwards
+        if self.player == Player.WHITE:
+           moves.append(Square.at(current_square.row + 1, current_square.col))
+        else:
+            moves.append(Square.at(current_square.row - 1, current_square.col))
+        return moves
 
 
 class Knight(Piece):
