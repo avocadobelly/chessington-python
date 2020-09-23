@@ -39,8 +39,14 @@ class Pawn(Piece):
         moves: List[Any] = []
         square_on_board = board.find_piece(self)
 
+        #If the pawn has reaches the other side of the board then there are no legal moves left
+        if (self.player == Player.WHITE and square_on_board.row == 7) or (self.player == Player.BLACK and square_on_board.row == 0):
+           return moves
+
+        #If the square in front of the piece is empty then moving one space is legal
         if board.get_piece(self.x_squares_in_front(square_on_board, 1)) is None:
             self.move_x_times(moves, square_on_board, 1)
+            # If it's the first time the pawn has moved then moving two spaces is legal
             if (square_on_board.row == 1 and self.player == Player.WHITE) or (square_on_board.row == 6 and self.player == Player.BLACK):
                 self.move_x_times(moves, square_on_board, 2)
         return moves
