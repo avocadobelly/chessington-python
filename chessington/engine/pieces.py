@@ -53,10 +53,12 @@ class Pawn(Piece):
         capturable_squares = self.one_square_in_front_diagonally(square_on_board)
         diagonal_square_1 = capturable_squares[0]
         diagonal_square_2 = capturable_squares[1]
+        piece_1_on_diagonal = board.get_piece(diagonal_square_1)
+        piece_2_on_diagonal =  board.get_piece(diagonal_square_1)
 
-        if board.get_piece(diagonal_square_1) and self.is_opposing_piece(board.get_piece(diagonal_square_1)):
+        if piece_1_on_diagonal and self.is_opposing_piece(piece_1_on_diagonal):
             moves.append(diagonal_square_1)
-        if board.get_piece(diagonal_square_2) and self.is_opposing_piece(board.get_piece(diagonal_square_2)):
+        if piece_2_on_diagonal and self.is_opposing_piece(piece_2_on_diagonal):
             moves.append(diagonal_square_2)
         return moves
 
