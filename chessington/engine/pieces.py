@@ -37,30 +37,22 @@ class Pawn(Piece):
         moves = []
         square_on_board = board.find_piece(self)
 
-        #pawns cannot move through obstructions:
         if self.player == Player.WHITE:
             square_one_in_front = Square.at(square_on_board.row + 1, square_on_board.col)
         else:
             square_one_in_front = Square.at(square_on_board.row - 1, square_on_board.col)
 
         if board.get_piece(square_one_in_front) is None:
-            self.single_move(moves, square_on_board)
+            self.move_x_times(moves, square_on_board, 1)
             if (square_on_board.row == 1 and self.player == Player.WHITE) or (square_on_board.row == 6 and self.player == Player.BLACK):
-                self.double_move(moves, square_on_board)
+                self.move_x_times(moves, square_on_board, 2)
         return moves
 
-    def single_move(self, moves, square_on_board):
+    def move_x_times(self, moves, square_on_board, x):
         if self.player == Player.WHITE:
-            moves.append(Square.at(square_on_board.row + 1, square_on_board.col))
+            moves.append(Square.at(square_on_board.row + x, square_on_board.col))
         else:
-            moves.append(Square.at(square_on_board.row - 1, square_on_board.col))
-
-    def double_move(self, moves, square_on_board):
-        if self.player == Player.WHITE:
-            moves.append(Square.at(square_on_board.row + 2, square_on_board.col))
-        else:
-            moves.append(Square.at(square_on_board.row - 2, square_on_board.col))
-
+            moves.append(Square.at(square_on_board.row - x, square_on_board.col))
 
 
 class Knight(Piece):
