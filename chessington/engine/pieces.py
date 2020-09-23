@@ -50,7 +50,7 @@ class Pawn(Piece):
             if (square_on_board.row == 1 and self.player == Player.WHITE) or (square_on_board.row == 6 and self.player == Player.BLACK):
                 self.move_x_times(moves, square_on_board, 2)
 
-        capturable_squares = self.one_square_in_front_digaonally(square_on_board)
+        capturable_squares = self.one_square_in_front_diagonally(square_on_board)
         diagonal_square_1 = capturable_squares[0]
         diagonal_square_2 = capturable_squares[1]
 
@@ -73,14 +73,16 @@ class Pawn(Piece):
         else:
             moves.append(Square.at(square_on_board.row - x_times, square_on_board.col))
 
-    def one_square_in_front_digaonally(self, square_on_board):
+    def one_square_in_front_diagonally(self, square_on_board):
         capturable_squares = []
         if self.player == Player.WHITE:
-            capturable_squares.append(Square.at(square_on_board.row + 1, square_on_board.col + 1))
-            capturable_squares.append(Square.at(square_on_board.row + 1, square_on_board.col - 1))
+            next_row = square_on_board.row + 1
         else:
-            capturable_squares.append(Square.at(square_on_board.row - 1, square_on_board.col + 1))
-            capturable_squares.append(Square.at(square_on_board.row - 1, square_on_board.col - 1))
+            next_row = square_on_board.row - 1
+        if square_on_board.col != 0:
+            capturable_squares.append(Square.at(next_row, square_on_board.col - 1))
+        if square_on_board.col != 7:
+            capturable_squares.append(Square.at(next_row, square_on_board.col + 1))
         return capturable_squares
 
     def is_opposing_piece(self, piece):
