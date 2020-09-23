@@ -54,9 +54,9 @@ class Pawn(Piece):
         diagonal_square_1 = capturable_squares[0]
         diagonal_square_2 = capturable_squares[1]
 
-        if self.is_piece_on_diagonal(board, diagonal_square_1) and self.is_opposing_piece(board.get_piece(diagonal_square_1)):
+        if board.get_piece(diagonal_square_1) and self.is_opposing_piece(board.get_piece(diagonal_square_1)):
             moves.append(diagonal_square_1)
-        if self.is_piece_on_diagonal(board, diagonal_square_2) and self.is_opposing_piece(board.get_piece(diagonal_square_2)):
+        if board.get_piece(diagonal_square_2) and self.is_opposing_piece(board.get_piece(diagonal_square_2)):
             moves.append(diagonal_square_2)
         return moves
 
@@ -91,11 +91,6 @@ class Pawn(Piece):
         else:
             return True
 
-    def is_piece_on_diagonal(self, board, square):
-        if not board.get_piece(square):
-            return False
-        else:
-            return True
 
 class Knight(Piece):
     """
