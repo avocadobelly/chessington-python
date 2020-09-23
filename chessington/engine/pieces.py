@@ -45,7 +45,7 @@ class Pawn(Piece):
 
         if board.get_piece(square_one_in_front) is None:
             self.single_move(moves, square_on_board)
-            if square_on_board.row == 1 or square_on_board.row == 6:
+            if (square_on_board.row == 1 and self.player == Player.WHITE) or (square_on_board.row == 6 and self.player == Player.BLACK):
                 self.double_move(moves, square_on_board)
         return moves
 
