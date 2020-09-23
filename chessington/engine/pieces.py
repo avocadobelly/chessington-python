@@ -51,15 +51,13 @@ class Pawn(Piece):
                 self.move_x_times(moves, square_on_board, 2)
 
         capturable_squares = self.one_square_in_front_diagonally(square_on_board)
-        diagonal_square_1 = capturable_squares[0]
-        diagonal_square_2 = capturable_squares[1]
-        piece_1_on_diagonal = board.get_piece(diagonal_square_1)
-        piece_2_on_diagonal =  board.get_piece(diagonal_square_1)
 
-        if piece_1_on_diagonal and self.is_opposing_piece(piece_1_on_diagonal):
-            moves.append(diagonal_square_1)
-        if piece_2_on_diagonal and self.is_opposing_piece(piece_2_on_diagonal):
-            moves.append(diagonal_square_2)
+        #loop over capturable squares to get all squares that can be moved to in bounds of the board
+        for diagonal_square in capturable_squares:
+            piece_on_diagonal = board.get_piece(diagonal_square)
+            if piece_on_diagonal and self.is_opposing_piece(piece_on_diagonal):
+                moves.append(diagonal_square)
+
         return moves
 
     def x_squares_in_front(self, square_on_board, x_squares):
