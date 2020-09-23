@@ -33,20 +33,34 @@ class Pawn(Piece):
     """
     A class representing a chess pawn.
     """
-
     def get_available_moves(self, board):
-        location_on_board = board.find_piece(self)
         moves = []
+        square_on_board = board.find_piece(self)
+
+        #pawns cannot move through obstructions:
         if self.player == Player.WHITE:
-            moves.append(Square.at(location_on_board.row + 1, location_on_board.col))
-            print(location_on_board)
-            if location_on_board.row == 1:
-                moves.append(Square.at(location_on_board.row + 2, location_on_board.col))
+            square_one_in_front = Square.at(square_on_board.row + 1, square_on_board.col)
         else:
-            moves.append(Square.at(location_on_board.row - 1, location_on_board.col))
-            if location_on_board.row == 6:
-                moves.append(Square.at(location_on_board.row - 2, location_on_board.col))
+            square_one_in_front = Square.at(square_on_board.row - 1, square_on_board.col)
+
+        if board.get_piece(square_one_in_front) is None:
+            self.single_move(moves, square_on_board)
+            if square_on_board.row == 1 or square_on_board.row == 6:
+                self.double_move(moves, square_on_board)
         return moves
+
+    def single_move(self, moves, square_on_board):
+        if self.player == Player.WHITE:
+            moves.append(Square.at(square_on_board.row + 1, square_on_board.col))
+        else:
+            moves.append(Square.at(square_on_board.row - 1, square_on_board.col))
+
+    def double_move(self, moves, square_on_board):
+        if self.player == Player.WHITE:
+            moves.append(Square.at(square_on_board.row + 2, square_on_board.col))
+        else:
+            moves.append(Square.at(square_on_board.row - 2, square_on_board.col))
+
 
 
 class Knight(Piece):
