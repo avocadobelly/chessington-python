@@ -35,14 +35,17 @@ class Pawn(Piece):
     """
 
     def get_available_moves(self, board):
-        #get the current square of the piece
-        current_square = board.find_piece(self)
+        location_on_board = board.find_piece(self)
         moves = []
-        # pawns may move one forwards or backwards
         if self.player == Player.WHITE:
-           moves.append(Square.at(current_square.row + 1, current_square.col))
+            moves.append(Square.at(location_on_board.row + 1, location_on_board.col))
+            print(location_on_board)
+            if location_on_board.row == 1:
+                moves.append(Square.at(location_on_board.row + 2, location_on_board.col))
         else:
-            moves.append(Square.at(current_square.row - 1, current_square.col))
+            moves.append(Square.at(location_on_board.row - 1, location_on_board.col))
+            if location_on_board.row == 6:
+                moves.append(Square.at(location_on_board.row - 2, location_on_board.col))
         return moves
 
 
