@@ -139,6 +139,7 @@ class King(Piece):
         return moves
 
     def move_x_times(self, moves, square_on_board, x_times):
+        if square_on_board.row != 7:
             moves.append(Square.at(square_on_board.row + x_times, square_on_board.col))
+        if square_on_board.row != 0:
             moves.append(Square.at(square_on_board.row - x_times, square_on_board.col))
-
