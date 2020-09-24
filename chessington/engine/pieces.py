@@ -39,7 +39,7 @@ class Pawn(Piece):
         moves: List[Any] = []
         square_on_board = board.find_piece(self)
 
-        #If the pawn has reaches the other side of the board then there are no legal moves left
+        #If the pawn has reached the other side of the board then there are no legal moves left
         if (self.player == Player.WHITE and square_on_board.row == 7) or (self.player == Player.BLACK and square_on_board.row == 0):
            return moves
 
@@ -96,7 +96,6 @@ class Knight(Piece):
     """
     A class representing a chess knight.
     """
-
     def get_available_moves(self, board):
         return []
 
@@ -132,6 +131,14 @@ class King(Piece):
     """
     A class representing a chess king.
     """
-
     def get_available_moves(self, board):
-        return []
+        moves: List[Any] = []
+        square_on_board = board.find_piece(self)
+
+        self.move_x_times(moves, square_on_board, 1)
+        return moves
+
+    def move_x_times(self, moves, square_on_board, x_times):
+            moves.append(Square.at(square_on_board.row + x_times, square_on_board.col))
+            moves.append(Square.at(square_on_board.row - x_times, square_on_board.col))
+
