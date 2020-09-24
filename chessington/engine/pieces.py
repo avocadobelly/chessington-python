@@ -143,3 +143,8 @@ class King(Piece):
             moves.append(Square.at(square_on_board.row + x_times, square_on_board.col))
         if square_on_board.row != 0:
             moves.append(Square.at(square_on_board.row - x_times, square_on_board.col))
+        if square_on_board.col != 7:
+            moves.append(Square.at(square_on_board.row, square_on_board.col + x_times))
+        if square_on_board.col != 0:
+            moves.append(Square.at(square_on_board.row, square_on_board.col - x_times))
+
