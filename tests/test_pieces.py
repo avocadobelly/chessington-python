@@ -334,7 +334,7 @@ class TestPawns:
 
 class TestKing:
     @staticmethod
-    def test_king_can_move_up_one_square():
+    def test_white_king_can_move_up_one_square():
 
         # Arrange
         board = Board.empty()
@@ -347,3 +347,17 @@ class TestKing:
 
         # Assert
         assert Square.at(1, 4) in moves
+
+    @staticmethod
+    def test_black_king_can_move_up_one_square():
+        # Arrange
+        board = Board.empty()
+        king = King(Player.BLACK)
+        square = Square.at(7, 3)
+        board.set_piece(square, king)
+
+        # Act
+        moves = king.get_available_moves(board)
+
+        # Assert
+        assert Square.at(6, 3) in moves
