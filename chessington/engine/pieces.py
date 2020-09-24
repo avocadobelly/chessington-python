@@ -148,3 +148,4 @@ class King(Piece):
         if square_on_board.col != 0:
             moves.append(Square.at(square_on_board.row, square_on_board.col - x_times))
 
+
