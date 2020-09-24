@@ -391,3 +391,58 @@ class TestKing:
         # Assert
         assert Square.at(7, 3) in moves
 
+    @staticmethod
+    def test_white_king_can_move_left_one_square():
+        # Arrange
+        board = Board.empty()
+        king = King(Player.WHITE)
+        square = Square.at(3, 4)
+        board.set_piece(square, king)
+
+        # Act
+        moves = king.get_available_moves(board)
+
+        # Assert
+        assert Square.at(3, 3) in moves
+
+    @staticmethod
+    def test_black_king_can_move_left_one_square():
+        # Arrange
+        board = Board.empty()
+        king = King(Player.BLACK)
+        square = Square.at(5, 3)
+        board.set_piece(square, king)
+
+        # Act
+        moves = king.get_available_moves(board)
+
+        # Assert
+        assert Square.at(5, 4) in moves
+
+    @staticmethod
+    def test_white_king_can_move_right_one_square():
+        # Arrange
+        board = Board.empty()
+        king = King(Player.WHITE)
+        square = Square.at(3, 4)
+        board.set_piece(square, king)
+
+        # Act
+        moves = king.get_available_moves(board)
+
+        # Assert
+        assert Square.at(3, 5) in moves
+
+    @staticmethod
+    def test_black_king_can_move_right_one_square():
+        # Arrange
+        board = Board.empty()
+        king = King(Player.BLACK)
+        square = Square.at(5, 3)
+        board.set_piece(square, king)
+
+        # Act
+        moves = king.get_available_moves(board)
+
+        # Assert
+        assert Square.at(5, 2) in moves
